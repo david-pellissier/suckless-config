@@ -8,6 +8,7 @@
 #include <time.h>
 #include <unistd.h>
 
+#include <X11/extensions/Xrender.h>
 #include <X11/Xlib.h>
 #include <X11/Xatom.h>
 #include <X11/Xproto.h>
@@ -670,6 +671,7 @@ setup(void)
 	swa.background_pixel = 0;
 	swa.border_pixel = 0;
 	swa.colormap = cmap;
+	const char border_width = 2;
 	swa.event_mask = ExposureMask | KeyPressMask | VisibilityChangeMask;
 	win = XCreateWindow(dpy, parentwin, x, y, mw, mh, border_width,
 	                    depth, CopyFromParent, visual,
