@@ -9,7 +9,7 @@ static const int topbar             = 1;        /* 0 means bottom bar */
 static const unsigned int gappx     = 8;       /* gap pixel between windows */
 static const char *fonts[]          = { "Hasklig:size=11" };
 static const char dmenufont[]       = "Hasklig:size=11";
-static const char col_gray1[]       = "#222222";
+static const char col_gray1[]       = "#21252b";
 static const char col_gray2[]       = "#444444";
 static const char col_gray3[]       = "#bbbbbb";
 static const char col_gray4[]       = "#eeeeee";
@@ -21,12 +21,22 @@ static const unsigned int borderalpha = OPAQUE;
 static const char *colors[][3]      = {
 	/*               fg         bg         border   */
 	[SchemeNorm] = { col_gray3, col_gray1, col_gray2 },
-	[SchemeSel]  = { col_gray4, col_cyan,  col_cyan  },
+	[SchemeSel]  = { col_gray4, col_gray1,  col_cyan  },
 };
 static const unsigned int alphas[][3]      = {
 	/*               fg      bg        border     */
 	[SchemeNorm] = { OPAQUE, baralpha, borderalpha },
 	[SchemeSel]  = { OPAQUE, baralpha, borderalpha },
+};
+
+/* launcher commands (They must be NULL terminated) */
+static const char* firefox[]	= { "firefox", NULL };
+static const char* code[]	= { "code", NULL };
+
+static const Launcher launchers[] = {
+       /* command       name to display */
+       { firefox,	"ff" },
+       { code, 		">" }, 
 };
 
 /* tagging */
