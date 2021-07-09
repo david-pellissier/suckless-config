@@ -6,9 +6,10 @@ static const unsigned int borderpx  = 2;        /* border pixel of windows */
 static const unsigned int snap      = 32;       /* snap pixel */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
+static const int user_bh            = 28;        /* 0 means that dwm will calculate bar height, >= 1 means dwm will user_bh as bar height */
 static const unsigned int gappx     = 9;       /* gap pixel between windows */
-static const char *fonts[]          = { "Hasklug:size=10:antialias=true:autohint=true" }; 
-static const char dmenufont[]       = "Hasklug:size=12";
+static const char *fonts[]          = { "Hasklig:size=12:antialias=true:autohint=true" }; 
+static const char dmenufont[]       = "Hasklug:size=15";
 static const char col_gray1[]       = "#21252b";
 static const char col_gray2[]       = "#444444";
 static const char col_gray3[]       = "#bbbbbb";
@@ -83,7 +84,7 @@ static const char *fileexplorer[] = { "nautilus", NULL }; // TODO : change it
 
 static Key keys[] = {
 	/* modifier                     key        function        argument */
-	{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
+	{ MODKEY,                       XK_Alt_L,  spawn,          {.v = dmenucmd } },
 	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = termcmd } },
 	{ MODKEY,             		XK_e,	   spawn,          {.v = fileexplorer } },
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
@@ -95,7 +96,7 @@ static Key keys[] = {
 	{ MODKEY,                       XK_l,      setmfact,       {.f = +0.05} },
 	{ MODKEY,                       XK_Return, zoom,           {0} },
 	{ MODKEY,                       XK_Tab,    view,           {0} },
-	{ MODKEY|ShiftMask,             XK_c,      killclient,     {0} },
+	{ MODKEY,	                XK_w,      killclient,     {0} },
 	{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} },
 	{ MODKEY,                       XK_f,      setlayout,      {.v = &layouts[1]} },
 	{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} },
