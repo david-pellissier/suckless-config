@@ -7,7 +7,7 @@ static const unsigned int snap      = 32;       /* snap pixel */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
 static const unsigned int gappx     = 9;       /* gap pixel between windows */
-static const char *fonts[]          = { "Hasklug:size=14:antialias=true:autohint=true" }; 
+static const char *fonts[]          = { "Hasklug:size=10:antialias=true:autohint=true" }; 
 static const char dmenufont[]       = "Hasklug:size=12";
 static const char col_gray1[]       = "#21252b";
 static const char col_gray2[]       = "#444444";
@@ -36,7 +36,7 @@ static const char* code[]	= { "code", NULL };
 static const Launcher launchers[] = {
        /* command       name to display */
        { firefox,	"\uf269" },
-       { code, 		"\uf121" }, 
+       { code, 		"\uf668" }, 
 };
 
 /* tagging */
