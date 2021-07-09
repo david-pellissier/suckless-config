@@ -40,7 +40,8 @@ static const Launcher launchers[] = {
 };
 
 /* tagging */
-static const char *tags[] = { "\uf111", "\uf111", "\uf111", "\uf111  " };
+static const char *tags[] = { "\uf10c", "\uf10c", "\uf10c", "\uf10c" };
+static const char *active_tags[] = { "\uf111", "\uf111", "\uf111", "\uf111" };
 
 static const Rule rules[] = {
 	/* xprop(1):
