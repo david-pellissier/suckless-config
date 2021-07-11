@@ -8,7 +8,7 @@ static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
 static const int user_bh            = 28;        /* 0 means that dwm will calculate bar height, >= 1 means dwm will user_bh as bar height */
 static const unsigned int gappx     = 9;       /* gap pixel between windows */
-static const char *fonts[]          = { "Hasklig:size=12:antialias=true:autohint=true" }; 
+static const char *fonts[]          = { "Hasklig-12.5:style=Regular", "Hasklig Medium-13.5:style=Medium,Regular" };
 static const char dmenufont[]       = "Hasklug:size=15";
 static const char col_gray1[]       = "#21252b";
 static const char col_gray2[]       = "#444444";
@@ -36,13 +36,15 @@ static const char* code[]	= { "code", NULL };
 
 static const Launcher launchers[] = {
        /* command       name to display */
-       { firefox,	"\uf269" },
-       { code, 		"\uf668" }, 
+       { firefox,	"" },
+       { code, 		"" },
+       { NULL, 	"" }, //todoist
+       { NULL,	"" }, //typora
 };
 
 /* tagging */
-static const char *tags[] = { "\uf10c", "\uf10c", "\uf10c", "\uf10c" };
-static const char *active_tags[] = { "\uf111", "\uf111", "\uf111", "\uf111" };
+static const char *tags[] = { "", "", "", "" };
+static const char *active_tags[] = { "", "", "", "" };
 
 static const Rule rules[] = {
 	/* xprop(1):
