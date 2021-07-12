@@ -13,6 +13,7 @@ static const char *colors[SchemeLast][2] = {
 	[SchemeNorm] = { "#bbbbbb", "#222222" },
 	[SchemeSel] = { "#eeeeee", "#005577" },
 	[SchemeOut] = { "#000000", "#00ffff" },
+	[SchemeHp] = { "#bbbbbb", "#333333" }
 };
 
 static const unsigned int alphas[SchemeLast][2] = {
@@ -31,4 +32,4 @@ static unsigned int lines      = 10;
 static const char worddelimiters[] = " ";
 
 /* Size of the window border */
-static const unsigned int border_width = 5;
+static const unsigned int border_width = 2;
