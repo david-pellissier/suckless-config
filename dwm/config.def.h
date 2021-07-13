@@ -6,10 +6,10 @@ static const unsigned int borderpx  = 2;        /* border pixel of windows */
 static const unsigned int snap      = 32;       /* snap pixel */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
-static const int user_bh            = 28;        /* 0 means that dwm will calculate bar height, >= 1 means dwm will user_bh as bar height */
+static const int user_bh            = 29;        /* 0 means that dwm will calculate bar height, >= 1 means dwm will user_bh as bar height */
 static const unsigned int gappx     = 9;       /* gap pixel between windows */
 static const char *fonts[]          = { "Hasklig-12.5:style=Regular", "Hasklig Medium-13.5:style=Medium,Regular" };
-static const char dmenufont[]       = "Hasklug:size=15";
+static const char dmenufont[]       = "Hasklug:size=12.5";
 static const char col_gray1[]       = "#21252b";
 static const char col_gray2[]       = "#444444";
 static const char col_gray3[]       = "#bbbbbb";
@@ -17,7 +17,7 @@ static const char col_gray4[]       = "#eeeeee";
 static const char col_cyan[]        = "#56b6c2";
 static const Bool viewontag         = True;     /* Switch view on tag switch */
 static const int focusonwheel       = 0; 	/* focusonclick patch */
-static const unsigned int baralpha = 0xd0;
+static const unsigned int baralpha = 0xd8;
 static const unsigned int borderalpha = OPAQUE;
 static const char *colors[][3]      = {
 	/*               fg         bg         border   */
@@ -33,17 +33,28 @@ static const unsigned int alphas[][3]      = {
 /* launcher commands (They must be NULL terminated) */
 static const char* firefox[]	= { "firefox", NULL };
 static const char* code[]	= { "code", NULL };
+static const char* sysmon[]	= { "gnome-system-monitor", NULL };
+static const char* todo[]	= { "todoist", NULL };
+static const char* typora[]	= { "typora", NULL };
+static const char* vm[]		= { "virtualbox", NULL };
+static const char* spotify[]	= { "spotify", NULL };
+static const char* pass[]	= { "keepassxc", NULL };
 
 static const Launcher launchers[] = {
        /* command       name to display */
        { firefox,	"" },
        { code, 		"" },
-       { NULL, 	"" }, //todoist
-       { NULL,	"" }, //typora
+       { todo, 		"" },
+       { sysmon, 	"" },
+       { spotify, 	"阮" },
+       { pass, 		"" },
+       { typora, 	"" },
+       { vm, 		"" }, 
+
 };
 
 /* tagging */
-static const char *tags[] = { "", "", "", "" };
+static const char *tags[] = { "", "", "", ""};
 static const char *active_tags[] = { "", "", "", "" };
 
 static const Rule rules[] = {
@@ -80,13 +91,13 @@ static const Layout layouts[] = {
 
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
-static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
+static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, "-shb", col_cyan, NULL };
 static const char *termcmd[]  = { "kitty", NULL };
 static const char *fileexplorer[] = { "nautilus", NULL }; // TODO : change it
 
 static Key keys[] = {
 	/* modifier                     key        function        argument */
-	{ MODKEY,                       XK_Alt_L,  spawn,          {.v = dmenucmd } },
+	{ MODKEY,                       XK_q,	   spawn,          {.v = dmenucmd } },
 	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = termcmd } },
 	{ MODKEY,             		XK_e,	   spawn,          {.v = fileexplorer } },
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
