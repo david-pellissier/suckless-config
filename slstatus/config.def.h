@@ -1,10 +1,10 @@
 /* See LICENSE file for copyright and license details. */
 
 /* interval between updates (in ms) */
-const unsigned int interval = 1000;
+const unsigned int interval = 30000;
 
 /* text to show if no value can be retrieved */
-static const char unknown_str[] = "n/a";
+static const char unknown_str[] = "-";
 
 /* maximum output string length */
 #define MAXLEN 2048
@@ -23,7 +23,7 @@ static const char unknown_str[] = "n/a";
  * datetime            date and time                   format string (%F %T)
  * disk_free           free disk space in GB           mountpoint path (/)
  * disk_perc           disk usage in percent           mountpoint path (/)
- * disk_total          total disk space in GB          mountpoint path (/")
+ * disk_total          total disk space in GB          mountpoint path (/)
  * disk_used           used disk space in GB           mountpoint path (/)
  * entropy             available entropy               NULL
  * gid                 GID of current user             NULL
@@ -64,6 +64,12 @@ static const char unknown_str[] = "n/a";
  * wifi_essid          WiFi ESSID                      interface name (wlan0)
  */
 static const struct arg args[] = {
-	/* function format          argument */
-	{ datetime, "%s",           "%F %T" },
+	/* function format          argument */ 
+	{ wifi_perc, " %s%% ", "enp0s8" }, // TODO: Change
+	{ cpu_perc, " %s%% ", NULL },
+	{ ram_used, "﫭 %s", NULL },
+	{ separator, " / ", NULL },
+	{ datetime, "%s",           "%d.%m - %H:%M" },
+	{ separator, " / ", NULL },
+	{ battery_perc, "%s%% ", 	"BAT0" },
 };
