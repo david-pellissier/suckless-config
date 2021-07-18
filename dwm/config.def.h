@@ -32,8 +32,7 @@ static const unsigned int alphas[][3]      = {
 
 /* launcher commands (They must be NULL terminated) */
 static const char* firefox[]	= { "firefox", NULL };
-static const char* code[]	= { "code", NULL };
-static const char* sysmon[]	= { "gnome-system-monitor", NULL };
+static const char* code[]	= { "code-oss", NULL };
 static const char* todo[]	= { "todoist", NULL };
 static const char* typora[]	= { "typora", NULL };
 static const char* vm[]		= { "virtualbox", NULL };
@@ -45,7 +44,6 @@ static const Launcher launchers[] = {
        { firefox,	"" },
        { code, 		"" },
        { todo, 		"" },
-       { sysmon, 	"" },
        { spotify, 	"阮" },
        { pass, 		"" },
        { typora, 	"" },
@@ -63,6 +61,10 @@ static const Rule rules[] = {
 	 *	WM_NAME(STRING) = title
 	 */
 	/* class      instance    title       tags mask     isfloating   monitor */
+	{ "discord", NULL, NULL, 1 << 3, 0, 0},
+	{ "telegram", NULL, NULL, 1 << 3, 0, 0},
+	{ "vlc", NULL, NULL, 1 << 2, 0, 0},
+	{ "spotify", NULL, NULL, 1 << 2, 0, 0},
 	{ NULL,     NULL,       NULL,       0,            0,           -1 },
 };
 
@@ -93,7 +95,11 @@ static const Layout layouts[] = {
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, "-shb", col_cyan, NULL };
 static const char *termcmd[]  = { "kitty", NULL };
-static const char *fileexplorer[] = { "nautilus", NULL }; // TODO : change it
+static const char *fileexplorer[] = { "thunar", NULL };
+
+static const char *upvol[]   = { "pactl", "set-sink-volume", "1", "+5%",     NULL };
+static const char *downvol[] = { "pactl", "set-sink-volume", "1", "-5%",     NULL };
+static const char *mutevol[] = { "pactl", "set-sink-mute",   "1", "toggle",  NULL };
 
 static Key keys[] = {
 	/* modifier                     key        function        argument */
@@ -121,6 +127,16 @@ static Key keys[] = {
 	{ MODKEY,                       XK_period, focusmon,       {.i = +1 } },
 	{ MODKEY|ShiftMask,             XK_comma,  tagmon,         {.i = -1 } },
 	{ MODKEY|ShiftMask,             XK_period, tagmon,         {.i = +1 } },
+	{ MODKEY,                       XK_F1,     spawn,          {.v = firefox } },
+	{ MODKEY,                       XK_F2,     spawn,          {.v = code } },
+	{ MODKEY,                       XK_F3,     spawn,          {.v = todo } },
+	{ MODKEY,                       XK_F4,     spawn,          {.v = spotify } },
+	{ MODKEY,                       XK_F5,     spawn,          {.v = pass} },
+	{ MODKEY,                       XK_F6,     spawn,          {.v = typora } },
+	{ MODKEY,                       XK_F7,     spawn,          {.v = vm } },
+	{ MODKEY,                       XK_F8,     spawn,          {.v = mutevol } },
+	{ MODKEY,                       XK_F11,    spawn,          {.v = downvol } },
+	{ MODKEY,                       XK_F12,    spawn,          {.v = upvol   } },
 	TAGKEYS(                        XK_1,                      0)
 	TAGKEYS(                        XK_2,                      1)
 	TAGKEYS(                        XK_3,                      2)
