@@ -1,5 +1,10 @@
 /* See LICENSE file for copyright and license details. */
 
+#define WLAN_IF "wlp2s0"
+#define BAT_IF "BAT1"
+#define DATETIME_FORMAT "%d.%m - %H:%M"
+static const char SEPARATOR[] = " / ";
+
 /* interval between updates (in ms) */
 const unsigned int interval = 30000;
 
@@ -65,11 +70,14 @@ static const char unknown_str[] = "-";
  */
 static const struct arg args[] = {
 	/* function format          argument */ 
-	{ wifi_perc, " %s%% ", "enp0s8" }, // TODO: Change
-	{ cpu_perc, " %s%% ", NULL },
-	{ ram_used, "﫭 %s", NULL },
-	{ separator, " / ", NULL },
-	{ datetime, "%s",           "%d.%m - %H:%M" },
-	{ separator, " / ", NULL },
-	{ battery_perc, "%s%% ", 	"BAT0" },
+	{ wifi_essid, 	" %s", 	WLAN_IF }, 
+	{ separator,	"  ",	NULL },
+	{ cpu_perc,	" %s%%", 	NULL },
+	{ separator,	"  ",	NULL },
+	{ ram_used,	"﫭 %s", 	NULL },
+	{ separator,	SEPARATOR,	NULL },
+	{ battery_state,"%s", 		BAT_IF },
+	{ battery_perc,	"%s%%", 	BAT_IF },
+	{ separator, 	SEPARATOR,	NULL },
+	{ datetime, 	"%s ",           DATETIME_FORMAT },
 };
