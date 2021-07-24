@@ -33,17 +33,15 @@ static const unsigned int alphas[][3]      = {
 /* launcher commands (They must be NULL terminated) */
 static const char* firefox[]	= { "firefox", NULL };
 static const char* code[]	= { "code-oss", NULL };
-static const char* todo[]	= { "todoist", NULL };
 static const char* typora[]	= { "typora", NULL };
 static const char* vm[]		= { "virtualbox", NULL };
-static const char* spotify[]	= { "spotify", NULL };
+static const char* spotify[]=     { "spotify", NULL };
 static const char* pass[]	= { "keepassxc", NULL };
 
 static const Launcher launchers[] = {
        /* command       name to display */
        { firefox,	"" },
        { code, 		"" },
-       { todo, 		"" },
        { spotify, 	"阮" },
        { pass, 		"" },
        { typora, 	"" },
@@ -62,7 +60,7 @@ static const Rule rules[] = {
 	 */
 	/* class      instance    title       tags mask     isfloating   monitor */
 	{ "discord", NULL, NULL, 1 << 3, 0, 0},
-	{ "telegram", NULL, NULL, 1 << 3, 0, 0},
+	{ "telegram-desktop", NULL, NULL, 1 << 3, 0, 0},
 	{ "vlc", NULL, NULL, 1 << 2, 0, 0},
 	{ "spotify", NULL, NULL, 1 << 2, 0, 0},
 	{ NULL,     NULL,       NULL,       0,            0,           -1 },
@@ -97,9 +95,10 @@ static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont,
 static const char *termcmd[]  = { "kitty", NULL };
 static const char *fileexplorer[] = { "thunar", NULL };
 
-static const char *upvol[]   = { "pactl", "set-sink-volume", "1", "+5%",     NULL };
-static const char *downvol[] = { "pactl", "set-sink-volume", "1", "-5%",     NULL };
-static const char *mutevol[] = { "pactl", "set-sink-mute",   "1", "toggle",  NULL };
+#define AUDIO_NB "0"
+static const char *upvol[]   = { "pactl", "set-sink-volume", AUDIO_NB, "+5%",     NULL };
+static const char *downvol[] = { "pactl", "set-sink-volume", AUDIO_NB, "-5%",     NULL };
+static const char *mutevol[] = { "pactl", "set-sink-mute",   AUDIO_NB, "toggle",  NULL };
 
 static Key keys[] = {
 	/* modifier                     key        function        argument */
@@ -129,12 +128,11 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_period, tagmon,         {.i = +1 } },
 	{ MODKEY,                       XK_F1,     spawn,          {.v = firefox } },
 	{ MODKEY,                       XK_F2,     spawn,          {.v = code } },
-	{ MODKEY,                       XK_F3,     spawn,          {.v = todo } },
-	{ MODKEY,                       XK_F4,     spawn,          {.v = spotify } },
-	{ MODKEY,                       XK_F5,     spawn,          {.v = pass} },
-	{ MODKEY,                       XK_F6,     spawn,          {.v = typora } },
-	{ MODKEY,                       XK_F7,     spawn,          {.v = vm } },
-	{ MODKEY,                       XK_F8,     spawn,          {.v = mutevol } },
+	{ MODKEY,                       XK_F3,     spawn,          {.v = spotify } },
+	{ MODKEY,                       XK_F4,     spawn,          {.v = pass} },
+	{ MODKEY,                       XK_F5,     spawn,          {.v = typora } },
+	{ MODKEY,                       XK_F6,     spawn,          {.v = vm } },
+	{ MODKEY,                       XK_F9,     spawn,          {.v = mutevol } },
 	{ MODKEY,                       XK_F11,    spawn,          {.v = downvol } },
 	{ MODKEY,                       XK_F12,    spawn,          {.v = upvol   } },
 	TAGKEYS(                        XK_1,                      0)
