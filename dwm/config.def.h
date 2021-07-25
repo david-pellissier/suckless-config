@@ -58,12 +58,12 @@ static const Rule rules[] = {
 	 *	WM_CLASS(STRING) = instance, class
 	 *	WM_NAME(STRING) = title
 	 */
-	/* class      instance    title       tags mask     isfloating   monitor */
-	{ "discord", NULL, NULL, 1 << 3, 0, 0},
-	{ "telegram-desktop", NULL, NULL, 1 << 3, 0, 0},
-	{ "vlc", NULL, NULL, 1 << 2, 0, 0},
-	{ "spotify", NULL, NULL, 1 << 2, 0, 0},
-	{ NULL,     NULL,       NULL,       0,            0,           -1 },
+	/* class              instance    title       tags mask     isfloating   monitor */
+	{ "discord",          NULL,       NULL,       1 << 3,       0,           0  },
+	{ "telegram-desktop", NULL,       NULL,       1 << 3,       0,           0  },
+	{ "vlc",              NULL,       NULL,       1 << 2,       0,           0  },
+	{ "Spotify",          "spotify",  NULL,       1 << 2,       0,           0  }, // doesn't work, idk why
+	{ NULL,               NULL,       NULL,       0,            0,           -1 },
 };
 
 /* layout(s) */
@@ -94,6 +94,7 @@ static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() 
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, "-shb", col_cyan, NULL };
 static const char *termcmd[]  = { "kitty", NULL };
 static const char *fileexplorer[] = { "thunar", NULL };
+static const char *screenshot[] = { "flameshot", "gui", NULL };
 
 #define AUDIO_NB "0"
 static const char *upvol[]   = { "pactl", "set-sink-volume", AUDIO_NB, "+5%",     NULL };
@@ -135,6 +136,7 @@ static Key keys[] = {
 	{ MODKEY,                       XK_F9,     spawn,          {.v = mutevol } },
 	{ MODKEY,                       XK_F11,    spawn,          {.v = downvol } },
 	{ MODKEY,                       XK_F12,    spawn,          {.v = upvol   } },
+	{ MODKEY,                       XK_Print,    spawn,          {.v = screenshot } },
 	TAGKEYS(                        XK_1,                      0)
 	TAGKEYS(                        XK_2,                      1)
 	TAGKEYS(                        XK_3,                      2)
