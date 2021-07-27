@@ -1978,7 +1978,8 @@ updatestatus(void)
 {
 	if (!gettextprop(root, XA_WM_NAME, stext, sizeof(stext)))
 		strcpy(stext, "dwm-"VERSION);
-	drawbar(selmon);
+	for (Monitor *m = mons; m; m = m->next)
+		drawbar(m);
 }
 
 void
