@@ -1,0 +1,21 @@
+#!/bin/bash
+# dmenu_run improved, modified to take arguments (for kitty)
+# if a command ends with "!", it is started in term.
+# source: https://tools.suckless.org/dmenu/scripts/
+
+cd $HOME;
+termcmd="kitty --hold"
+
+cmd="$(dmenu_path | dmenu $@)"
+case $cmd in
+	*\! )	read -ra words <<< ${cmd:0:-1}
+	  	for word in ${words[@]}
+	  	do
+			termcmd=$termcmd" $word"
+	  	done
+		${termcmd} ;;
+	* ) 	${cmd} ;;
+esac
+
+exit
+
