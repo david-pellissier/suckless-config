@@ -91,15 +91,16 @@ static const Layout layouts[] = {
 
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
-static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, "-shb", col_cyan, NULL };
+static const char *dmenucmd[] = { "dmenu_run_i", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, "-shb", col_cyan, NULL };
 static const char *termcmd[]  = { "kitty", NULL };
 static const char *fileexplorer[] = { "thunar", NULL };
 static const char *screenshot[] = { "flameshot", "gui", NULL };
 
-#define AUDIO_NB "0"
-static const char *upvol[]   = { "pactl", "set-sink-volume", AUDIO_NB, "+5%",     NULL };
-static const char *downvol[] = { "pactl", "set-sink-volume", AUDIO_NB, "-5%",     NULL };
-static const char *mutevol[] = { "pactl", "set-sink-mute",   AUDIO_NB, "toggle",  NULL };
+
+#define VOLUMESCRIPT "/home/david/Workspace/Projets/scripts-divers/volume/volume.sh"
+static const char *upvol[]   = { VOLUMESCRIPT, "up",     NULL };
+static const char *downvol[] = { VOLUMESCRIPT, "down",   NULL };
+static const char *mutevol[] = { VOLUMESCRIPT, "toggle", NULL };
 
 static Key keys[] = {
 	/* modifier                     key        function        argument */
@@ -136,7 +137,7 @@ static Key keys[] = {
 	{ MODKEY,                       XK_F9,     spawn,          {.v = mutevol } },
 	{ MODKEY,                       XK_F11,    spawn,          {.v = downvol } },
 	{ MODKEY,                       XK_F12,    spawn,          {.v = upvol   } },
-	{ MODKEY,                       XK_Print,    spawn,          {.v = screenshot } },
+	{ MODKEY,                       XK_Print,    spawn,        {.v = screenshot } },
 	TAGKEYS(                        XK_1,                      0)
 	TAGKEYS(                        XK_2,                      1)
 	TAGKEYS(                        XK_3,                      2)
