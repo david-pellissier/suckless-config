@@ -9,14 +9,13 @@ static const Bool failonclear = False;
 #define CPU_THREADS 4
 
 /* default messages */
-static const char* messages[NUMLEVELS] = { "Screen locked\nWaiting for password", "Reading input...", "Wrong password" };
+static const char* messages[NUMLEVELS] = { "Screen locked", "Reading input...", "Wrong password" };
 
 /* text color */
 static const char * text_color = "#ffffff";
 
 /* text size (must be a valid size) */
-static const char * font_name = "-misc-fixed-medium-r-semicondensed--0-0-75-75-c-0-iso8859-1";
-
+static const char * font_name = "-misc-dejavu sans-medium-o-normal--0-0-0-0-p-0-iso8859-15";
 /* text position */
 static const Bool centertext = False;
 
