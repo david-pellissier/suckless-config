@@ -335,9 +335,6 @@ readpw(Display *dpy, struct xrandr *rr, struct lock **locks, int nscreens,
 			level = len ? INPUT : ((failure || failonclear) ? FAILED : INIT);
 			if (running && oldl != level) {
 				for (screen = 0; screen < nscreens; screen++){
-					// do not blur because performance
-					// blurlockwindow(dpy,locks[screen],blurlevel[level]);
-					
 					// Remove old messages
 					struct lock *lock = locks[screen];
     					XWindowAttributes gwa;
@@ -362,7 +359,7 @@ readpw(Display *dpy, struct xrandr *rr, struct lock **locks, int nscreens,
 					else
 						XResizeWindow(dpy, locks[screen]->win,
 						              rre->width, rre->height);
-          blurlockwindow(dpy,locks[screen],blurlevel[INIT]);
+          blurlockwindow(dpy,locks[screen],blurlevel);
 					break;
 				}
 			}
@@ -405,7 +402,7 @@ lockscreen(Display *dpy, struct xrandr *rr, int screen)
   XGetWindowAttributes(dpy, lock->root, &gwa);
   lock->originalimage=XGetImage(dpy,lock->root, 0, 0, gwa.width, gwa.height, AllPlanes, ZPixmap);
   lock->image=NULL;
-  blurlockwindow(dpy,lock,blurlevel[INIT]);
+  blurlockwindow(dpy,lock,blurlevel);
 
 	/* Try to grab mouse pointer *and* keyboard for 600ms, else fail the lock */
 	for (i = 0, ptgrab = kbgrab = -1; i < 6; i++) {
