@@ -8,13 +8,19 @@ termcmd="kitty --hold"
 
 cmd="$(dmenu_path | dmenu $@)"
 case $cmd in
+	*\!\!)	cmd="sudo "${cmd:0:-1}
+		;& # fall through
+
 	*\! )	read -ra words <<< ${cmd:0:-1}
 	  	for word in ${words[@]}
 	  	do
 			termcmd=$termcmd" $word"
 	  	done
-		${termcmd} ;;
-	* ) 	${cmd} ;;
+		${termcmd} 
+		;;
+
+	* ) 	${cmd} 
+		;;
 esac
 
 exit
