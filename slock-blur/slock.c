@@ -186,9 +186,17 @@ writemessage(Display *dpy, Window win, int screen)
 		s_width = DisplayWidth(dpy, screen);
 		s_height = DisplayHeight(dpy, screen);
 	}
+	
+	if(centertext) {
 
 	height = s_height*3/7 - (k*20)/3;
 	width  = (s_width - XTextWidth(fontinfo, message, line_len))/2;
+
+	}
+	else {
+		width = text_y;
+		height = text_x;
+	}
 
 	/* Look for '\n' and print the text between them. */
 	for (i = j = k = 0; i <= len; i++) {
@@ -328,7 +336,7 @@ readpw(Display *dpy, struct xrandr *rr, struct lock **locks, int nscreens,
 			level = len ? INPUT : ((failure || failonclear) ? FAILED : INIT);
 			if (running && oldc != level) {
 				for (screen = 0; screen < nscreens; screen++)
-            blurlockwindow(dpy,locks[screen],blurlevel[level]);
+//blurlockwindow(dpy,locks[screen],blurlevel[level]);
 				oldl = level;
 			}
 		} else if (rr->active && ev.type == rr->evbase + RRScreenChangeNotify) {
@@ -450,6 +458,7 @@ main(int argc, char **argv) {
 		return 0;
 	case 'm':
 		message = EARGF(usage());
+		break;
 	case 'f':
                if (!(dpy = XOpenDisplay(NULL)))
                        die("slock: cannot open display\n");
