@@ -125,7 +125,7 @@ dontkillme(void)
 #endif
 
 static void
-writemessage(Display *dpy, Window win, int screen)
+writemessage(Display *dpy, Window win, int screen, const char *msg)
 {
 	int len, line_len, width, height, s_width, s_height, i, j, k, tab_replace, tab_size;
 	XGCValues gr_values;
@@ -160,13 +160,13 @@ writemessage(Display *dpy, Window win, int screen)
 	 * Start formatting and drawing text
 	 */
 
-	len = strlen(message);
+	len = strlen(msg);
 
 	/* Max max line length (cut at '\n') */
 	line_len = 0;
 	k = 0;
 	for (i = j = 0; i < len; i++) {
-		if (message[i] == '\n') {
+		if (msg[i] == '\n') {
 			if (i - j > line_len)
 				line_len = i - j;
 			k++;
@@ -190,7 +190,7 @@ writemessage(Display *dpy, Window win, int screen)
 	if(centertext) {
 
 	height = s_height*3/7 - (k*20)/3;
-	width  = (s_width - XTextWidth(fontinfo, message, line_len))/2;
+	width  = (s_width - XTextWidth(fontinfo, msg, line_len))/2;
 
 	}
 	else {
@@ -201,15 +201,15 @@ writemessage(Display *dpy, Window win, int screen)
 	/* Look for '\n' and print the text between them. */
 	for (i = j = k = 0; i <= len; i++) {
 		/* i == len is the special case for the last line */
-		if (i == len || message[i] == '\n') {
+		if (i == len || msg[i] == '\n') {
 			tab_replace = 0;
-			while (message[j] == '\t' && j < i) {
+			while (msg[j] == '\t' && j < i) {
 				tab_replace++;
 				j++;
 			}
 
-			XDrawString(dpy, win, gc, width + tab_size*tab_replace, height + 20*k, message + j, i - j);
-			while (i < len && message[i] == '\n') {
+			XDrawString(dpy, win, gc, width + tab_size*tab_replace, height + 20*k, msg + j, i - j);
+			while (i < len && msg[i] == '\n') {
 				i++;
 				j = i;
 				k++;
@@ -271,7 +271,7 @@ readpw(Display *dpy, struct xrandr *rr, struct lock **locks, int nscreens,
 {
 	XRRScreenChangeNotifyEvent *rre;
 	char buf[32], passwd[256], *inputhash;
-	int num, screen, running, failure, oldc;
+	int num, screen, running, failure;
 	unsigned int len, level;
 	KeySym ksym;
 	XEvent ev;
@@ -280,7 +280,6 @@ readpw(Display *dpy, struct xrandr *rr, struct lock **locks, int nscreens,
 	len = 0;
 	running = 1;
 	failure = 0;
-	oldc = INIT;
 
 	while (running && !XNextEvent(dpy, &ev)) {
 		if (ev.type == KeyPress) {
@@ -334,9 +333,22 @@ readpw(Display *dpy, struct xrandr *rr, struct lock **locks, int nscreens,
 				break;
 			}
 			level = len ? INPUT : ((failure || failonclear) ? FAILED : INIT);
-			if (running && oldc != level) {
-				for (screen = 0; screen < nscreens; screen++)
-//blurlockwindow(dpy,locks[screen],blurlevel[level]);
+			if (running && oldl != level) {
+				for (screen = 0; screen < nscreens; screen++){
+					// do not blur because performance
+					// blurlockwindow(dpy,locks[screen],blurlevel[level]);
+					
+					// Remove old messages
+					struct lock *lock = locks[screen];
+    					XWindowAttributes gwa;
+					XGetWindowAttributes(dpy, lock->root, &gwa);
+    					GC gc = XCreateGC (dpy, lock->win, 0, 0);
+				   	XPutImage(dpy, lock->win, gc, lock->image, 0, 0, 0, 0, gwa.width, gwa.height);
+				    	XFlush(dpy);
+
+					writemessage(dpy, lock->win, screen, messages[level]);
+				}
+					
 				oldl = level;
 			}
 		} else if (rr->active && ev.type == rr->evbase + RRScreenChangeNotify) {
@@ -451,13 +463,13 @@ main(int argc, char **argv) {
 	int i, s, nlocks, nscreens;
 	int count_fonts;
 	char **font_names;
-
+	
 	ARGBEGIN {
 	case 'v':
 		fprintf(stderr, "slock-"VERSION"\n");
 		return 0;
 	case 'm':
-		message = EARGF(usage());
+		messages[0] = EARGF(usage());
 		break;
 	case 'f':
                if (!(dpy = XOpenDisplay(NULL)))
@@ -498,7 +510,7 @@ main(int argc, char **argv) {
 		die("slock: out of memory\n");
 	for (nlocks = 0, s = 0; s < nscreens; s++) {
 		if ((locks[s] = lockscreen(dpy, &rr, s)) != NULL) {
-			writemessage(dpy, locks[s]->win, s);
+			writemessage(dpy, locks[s]->win, s, messages[INIT]);
 			nlocks++;
 		} else {
 			break;
