@@ -95,6 +95,7 @@ static const char *dmenucmd[] = { "dmenu_run_i", "-m", dmenumon, "-fn", dmenufon
 static const char *termcmd[]  = { "kitty", NULL };
 static const char *fileexplorer[] = { "thunar", NULL };
 static const char *screenshot[] = { "flameshot", "gui", NULL };
+static const char *lockscreen[] = { "slock", NULL };
 
 
 #define VOLUMESCRIPT "/home/david/Workspace/Projets/scripts-divers/volume/volume.sh"
@@ -137,7 +138,8 @@ static Key keys[] = {
 	{ MODKEY,                       XK_F9,     spawn,          {.v = mutevol } },
 	{ MODKEY,                       XK_F11,    spawn,          {.v = downvol } },
 	{ MODKEY,                       XK_F12,    spawn,          {.v = upvol   } },
-	{ MODKEY,                       XK_Print,    spawn,        {.v = screenshot } },
+	{ MODKEY,                       XK_Print,  spawn,          {.v = screenshot } },
+	{ MODKEY,                       XK_Escape, spawn,          {.v = lockscreen } },
 	TAGKEYS(                        XK_1,                      0)
 	TAGKEYS(                        XK_2,                      1)
 	TAGKEYS(                        XK_3,                      2)

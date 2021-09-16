@@ -741,7 +741,7 @@ drawbar(Monitor *m)
 	}
 	x = 0;
 	for (i = 0; i < LENGTH(tags); i++) {
-		const char* tag = (occ & 1 << i) ? active_tags[i] : tags[i]; // different tag if there is active clients
+		const char* tag = (occ & 1 << i) ? active_tags[i] : tags[i]; // different tag if there are active clients
 		w = TEXTW(tag); 
 		drw_setscheme(drw, scheme[m->tagset[m->seltags] & 1 << i ? SchemeSel : SchemeNorm]);
 		drw_text(drw, x, 0, w, bh, lrpad / 2, tag, urg & 1 << i);
@@ -754,7 +754,7 @@ drawbar(Monitor *m)
 	for (i = 0; i < LENGTH(launchers); i++)
 	{
 		w = TEXTW(launchers[i].name);
-		drw_text(drw, x, 0, w, bh, lrpad / 2, launchers[i].name, urg & 1 << i);
+		drw_text(drw, x, 0, w, bh, lrpad / 2, launchers[i].name, 0);
 		x += w;
 	}
 
